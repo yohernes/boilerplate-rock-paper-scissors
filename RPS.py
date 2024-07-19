@@ -8,3 +8,10 @@ def player(prev_play, opponent_history=[]):
         guess = opponent_history[-2]
 
     return guess
+def BeatQuincy(prev_play, opponent_history = [],counter = [0]):
+    options = ["P","P","S","S","R"]
+    counter[0]+=1
+    guess = options[counter[0]%len(options)]
+
+
+    return guess
