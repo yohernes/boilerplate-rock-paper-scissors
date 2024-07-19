@@ -1,6 +1,6 @@
 # This entrypoint file to be used in development. Start by reading README.md
 from RPS_game import play, mrugesh, abbey, quincy, kris, human, random_player
-from RPS import BeatQuincy
+from RPS import BeatQuincy,BeatKris
 from unittest import main
 
 
@@ -13,7 +13,7 @@ from unittest import main
 # play(human, abbey, 20, verbose=True)
 
 # Uncomment line below to play against a bot that plays randomly:
-play(human, abbey, 10)
+play(human, mrugesh, 10)
 
 
 

@@ -8,10 +8,28 @@ def player(prev_play, opponent_history=[]):
         guess = opponent_history[-2]
 
     return guess
+
+
+
 def BeatQuincy(prev_play, opponent_history = [],counter = [0]):
+    # quincy cycles RPPSR so you need to go PSSRP (start with index 1)
     options = ["P","P","S","S","R"]
     counter[0]+=1
     guess = options[counter[0]%len(options)]
 
+    return guess
+
+
+def BeatKris(prev_play, opponent_history = [],counter = [0]):
+    # kris tries to beat your last move, so you need to beat whatever beats your last move, meaning the cycle is ...rsprsp...
+    # kris starts with P so the cycle starts with S. (index 1)
+    options = ["R","S","P"]
+    counter[0]+=1
+    guess = options[counter[0]%len(options)]
 
     return guess
+
+def BeatMrugesh(prev_play, opponent_history = [],counter = [0]):
+    # mrugesh tries to beat your most frequent move out of your last 10
+
+    return
