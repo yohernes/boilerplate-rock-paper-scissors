@@ -1,4 +1,7 @@
-# The example function below keeps track of the opponent's history and plays whatever the opponent played two plays ago. It is not a very good player so you will need to change the code to pass the challenge.
+from collections import Counter
+
+# The example function below keeps track of the opponent's history and plays whatever the opponent played two plays ago.
+#  It is not a very good player so you will need to change the code to pass the challenge.
 
 def player(prev_play, opponent_history=[]):
     opponent_history.append(prev_play)
@@ -11,26 +14,66 @@ def player(prev_play, opponent_history=[]):
 
 
 
-def BeatQuincy(prev_play, opponent_history = [],counter = [0]):
-    # quincy cycles RPPSR so you need to go PSSRP (start with index 1)
-    options = ["P","P","S","S","R"]
+def BeatQuincy(prev_play, opponent_history = [],counter = [-1]):
+    # quincy cycles RPPSR so you need to go PSSRP (start with index 0)
+    options = ["P","S","S","R","P"]
     counter[0]+=1
     guess = options[counter[0]%len(options)]
 
     return guess
 
 
-def BeatKris(prev_play, opponent_history = [],counter = [0]):
+def BeatKris(prev_play, opponent_history = [],counter = [-1]):
     # kris tries to beat your last move, so you need to beat whatever beats your last move, meaning the cycle is ...rsprsp...
-    # kris starts with P so the cycle starts with S. (index 1)
-    options = ["R","S","P"]
+    # kris starts with P so the cycle starts with S. (index 0)
+    options = ["S","P","R"]
     counter[0]+=1
-    guess = options[counter[0]%len(options)]
+    guess = options[(counter[0])%len(options)]
 
     return guess
 
-def BeatMrugesh(prev_play, opponent_history = [],counter = [0]):
-    # mrugesh tries to beat your most frequent move out of your last 10
-    options = ["a", "P","P","R", "R", "S", "S"]
+def BeatMrugesh(prev_play, opponent_history = [],counter = [-1], my_history = [""]):
+    # mrugesh tries to beat your most frequent move out of your last 10,
+    # if there is a tie in your last 10 the pick will be random between the options
+    move = "P"
+    best_moves_1 = {"P":"R","R":"S","S":"P"}
+    best_moves_2 = {
+                    "PR":"S",
+                    "RP":"S", 
+                    "PS":"R",
+                    "SP":"R",
+                    "RS":"P",
+                    "SR":"P"
+                    }
+    my_last_ten = my_history[-10:]
+    most = "".join(most_frequent(my_last_ten))
+    if len(most)==1:
+        move = best_moves_1[most]
+    elif len(most) ==2:
+        move = best_moves_2[most]
+    elif len(most)==3:
+        move = "P"
+    
     counter[0]+=1
-    return options[counter[0]%len(options)]
+    if counter[0]==0 or counter[0]==1:
+        move = "P"
+    my_history.append(move)
+    return move
+
+
+
+
+def most_frequent(strings):
+    
+    counts = Counter(strings)
+    # Get the most common string(s)
+    most_common = counts.most_common()
+    
+    if not most_common:
+        return "No valid strings"
+    max = most_common[0][1]
+    ties = [item[0] for item in most_common if item[1]==max]
+    
+    return ties
+    
+

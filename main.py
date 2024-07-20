@@ -15,9 +15,11 @@ from unittest import main
 # Uncomment line below to play against a bot that plays randomly:
 
 #for i in range(10):
-play(human, mrugesh, 7, True)
+play(BeatMrugesh, mrugesh, 10000)
+
+
 
 
 
 # Uncomment line below to run unit tests automatically
-# main(module='test_module', exit=False)
+#main(module='test_module', exit=False)
