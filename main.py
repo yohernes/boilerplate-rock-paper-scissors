@@ -1,4 +1,6 @@
 # This entrypoint file to be used in development. Start by reading README.md
+from msilib.schema import Verb
+from tabnanny import verbose
 from RPS_game import play, mrugesh, abbey, quincy, kris, human, random_player
 from RPS import BeatQuincy,BeatKris, BeatMrugesh
 from unittest import main
@@ -15,8 +17,11 @@ from unittest import main
 # Uncomment line below to play against a bot that plays randomly:
 
 #for i in range(10):
-play(BeatMrugesh, mrugesh, 10000)
+play(BeatMrugesh, mrugesh, 1000)
 
+play(BeatQuincy,quincy,1000)
+
+play(BeatKris,kris,1000)
 
 
 

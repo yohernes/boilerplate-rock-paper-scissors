@@ -34,8 +34,14 @@ def BeatKris(prev_play, opponent_history = [],counter = [-1]):
 
 def BeatMrugesh(prev_play, opponent_history = [],counter = [-1], my_history = [""]):
     # mrugesh tries to beat your most frequent move out of your last 10,
-    # if there is a tie in your last 10 the pick will be random between the options
+    # if there is a tie in your last 10  mrugesh will pick randomly between the options
+    # if there are 2 options you can choose the best one to win/tie, but when there are 3 options its totally random so i picked "P"
     move = "P"
+    counter[0]+=1
+    if counter[0]==0 or counter[0]==1:
+        move = "P"
+        my_history.append(move)
+        return move
     best_moves_1 = {"P":"R","R":"S","S":"P"}
     best_moves_2 = {
                     "PR":"S",
@@ -54,10 +60,8 @@ def BeatMrugesh(prev_play, opponent_history = [],counter = [-1], my_history = ["
     elif len(most)==3:
         move = "P"
     
-    counter[0]+=1
-    if counter[0]==0 or counter[0]==1:
-        move = "P"
     my_history.append(move)
+    
     return move
 
 
