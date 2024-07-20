@@ -31,5 +31,6 @@ def BeatKris(prev_play, opponent_history = [],counter = [0]):
 
 def BeatMrugesh(prev_play, opponent_history = [],counter = [0]):
     # mrugesh tries to beat your most frequent move out of your last 10
-
-    return
+    options = ["a", "P","P","R", "R", "S", "S"]
+    counter[0]+=1
+    return options[counter[0]%len(options)]
