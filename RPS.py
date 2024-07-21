@@ -3,14 +3,7 @@ from collections import Counter
 # The example function below keeps track of the opponent's history and plays whatever the opponent played two plays ago.
 #  It is not a very good player so you will need to change the code to pass the challenge.
 
-def player(prev_play, opponent_history=[]):
-    opponent_history.append(prev_play)
 
-    guess = "R"
-    if len(opponent_history) > 2:
-        guess = opponent_history[-2]
-
-    return guess
 
 
 
@@ -81,3 +74,42 @@ def most_frequent(strings):
     return ties
     
 
+def BeatAbbey(prev_play,my_prev_play =[""],
+          my_history=[],
+          play_order={
+              "RR": 0,
+              "RP": 0,
+              "RS": 0,
+              "PR": 0,
+              "PP": 0,
+              "PS": 0,
+              "SR": 0,
+              "SP": 0,
+              "SS": 0,
+          }):
+
+    if not my_prev_play[0]:
+        my_prev_play[0]='R'
+    my_history.append(my_prev_play[0])
+
+    last_two = "".join(my_history[-2:])
+    if len(last_two) == 2:
+        play_order[last_two] += 1
+
+    potential_plays = [
+        my_prev_play[0] + "R",
+        my_prev_play[0] + "P",
+        my_prev_play [0]+ "S",
+    ]
+
+    sub_order = {
+        k: play_order[k]
+        for k in potential_plays if k in play_order
+    }
+
+    prediction = max(sub_order, key=sub_order.get)[-1:]
+
+    ideal_response = {'P': 'R', 'R': 'S', 'S': 'P'}
+    move = ideal_response[prediction]
+    my_prev_play[0] = move
+    return move
