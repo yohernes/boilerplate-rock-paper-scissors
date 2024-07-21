@@ -7,22 +7,34 @@ from collections import Counter
 
 
 
-def BeatQuincy(prev_play, opponent_history = [],counter = [-1]):
+def beat_quincy(prev_play, opponent_history = [],counter = [-1]):
     # quincy cycles RPPSR so you need to go PSSRP (start with index 0)
-    options = ["P","S","S","R","P"]
     counter[0]+=1
-    guess = options[counter[0]%len(options)]
+    if prev_play != "":
+        opponent_history.append(prev_play)
+    
+    best_move = {"RP":"S","PP":"R","PS":"P","SR":"P","RR":"S"}
+    if len(opponent_history)>=2:
+        last_two = "".join(opponent_history[-2:])
+    elif len(opponent_history)==1:
+        last_two="RR"
+    else:
+        last_two="SR"
+    
+    
+    guess = best_move[last_two]
 
     return guess
 
 
-def BeatKris(prev_play, opponent_history = [],counter = [-1]):
-    # kris tries to beat your last move, so you need to beat whatever beats your last move, meaning the cycle is ...rsprsp...
-    # kris starts with P so the cycle starts with S. (index 0)
-    options = ["S","P","R"]
-    counter[0]+=1
-    guess = options[(counter[0])%len(options)]
-
+def BeatKris(prev_play, my_prev_play = [""] , opponent_history = [],counter = [-1]):
+    # kris tries to beat your last move, so you need to beat whatever beats your last move, so you can beat whatever beats your last move
+    
+    if not my_prev_play[0]:
+        my_prev_play[0] = "R"
+    best_move = {'S':'P', 'P':'R','R':'S'}
+    guess = best_move[my_prev_play[0]]
+    my_prev_play[0] = guess
     return guess
 
 def BeatMrugesh(prev_play, opponent_history = [],counter = [-1], my_history = [""]):
@@ -74,19 +86,9 @@ def most_frequent(strings):
     return ties
     
 
-def BeatAbbey(prev_play,my_prev_play =[""],
+def beat_abbey(prev_play,my_prev_play =[""],
           my_history=[],
-          play_order={
-              "RR": 0,
-              "RP": 0,
-              "RS": 0,
-              "PR": 0,
-              "PP": 0,
-              "PS": 0,
-              "SR": 0,
-              "SP": 0,
-              "SS": 0,
-          }):
+          play_order={"RR": 0,"RP": 0,"RS": 0,"PR": 0,"PP": 0,"PS": 0,"SR": 0,"SP": 0,"SS": 0, }):
 
     if not my_prev_play[0]:
         my_prev_play[0]='R'
@@ -99,7 +101,7 @@ def BeatAbbey(prev_play,my_prev_play =[""],
     potential_plays = [
         my_prev_play[0] + "R",
         my_prev_play[0] + "P",
-        my_prev_play [0]+ "S",
+        my_prev_play[0] + "S",
     ]
 
     sub_order = {

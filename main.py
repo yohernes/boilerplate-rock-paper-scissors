@@ -3,22 +3,22 @@ from msilib.schema import Verb
 from re import VERBOSE
 from tabnanny import verbose
 from RPS_game import play, mrugesh, abbey, quincy, kris, human, random_player
-from RPS import BeatQuincy,BeatKris, BeatMrugesh, BeatAbbey
+from RPS import BeatQuincy,BeatKris, BeatMrugesh, beat_abbey
 from unittest import main
 
 
-#play(player, quincy, 1000)
-#play(player, abbey, 1000)
-#play(player, kris, 1000)
-#play(player, mrugesh, 1000)
+# play(player, quincy, 1000)
+# play(player, abbey, 1000)
+# play(player, kris, 1000)
+# play(player, mrugesh, 1000)
 
 # Uncomment line below to play interactively against a bot:
 # play(human, abbey, 20, verbose=True)
 
 # Uncomment line below to play against a bot that plays randomly:
 
-#for i in range(10):
-play(BeatAbbey,abbey,1000,verbose = True)
+# for i in range(10):
+play(BeatQuincy,quincy,1000,verbose = True)
 
 
 
