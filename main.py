@@ -3,7 +3,7 @@ from msilib.schema import Verb
 from re import VERBOSE
 from tabnanny import verbose
 from RPS_game import play, mrugesh, abbey, quincy, kris, human, random_player
-from RPS import beat_quincy,beat_kris, beat_mrugesh, beat_abbey, player
+from RPS import  player
 from unittest import main
 
 
@@ -17,13 +17,7 @@ from unittest import main
 
 # Uncomment line below to play against a bot that plays randomly:
 
-# for i in range(10):
-play(player,kris,1000,verbose = True)
-play(player,abbey,1000)
-play(player,quincy,1000)
-play(player,mrugesh,1000)
-
 
 
 # Uncomment line below to run unit tests automatically
-#main(module='test_module', exit=False)
+main(module='test_module', exit=False)

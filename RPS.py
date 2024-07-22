@@ -3,9 +3,22 @@ from collections import Counter
 # The example function below keeps track of the opponent's history and plays whatever the opponent played two plays ago.
 #  It is not a very good player so you will need to change the code to pass the challenge.
 
-def player(prev_play, my_prev_play = [""], counter = [-1], against = [""], opponent_history=[], my_history = [""]):
+def player(prev_play, my_prev_play = [""], counter = [-1], against = [""], opponent_history=[], my_history = [""],x =[0]):
+    #my strategy is to create a counter to every bot, then detect against whom im playing (possible with only 2 moves),
+    # then choose the correct counter. in order to win consecutively against different opponents,
+    # after a number of games i must reset the parameters
+    x[0]+=1
+    if x[0]==1001:
+        prev_play = ""
+        my_prev_play = [""]
+        counter[0] = -1
+        against = [""]
+        opponent_history=[]
+        my_history = [""]
+        x[0]=1
     counter[0]+=1
-    against_plays = {"PP":"abbey", "PR":"kris", "RR":"mrugesh", "RP":"beat_quincy"}
+    #these are the first 2 plays of every bot, given a first play of "S" from the opponent
+    against_plays = {"PP":"abbey", "PR":"kris", "RR":"mrugesh", "RP":"quincy"}
     if counter[0] ==0:
         my_prev_play[0] = "S"
         my_history.append(my_prev_play[0])
@@ -16,12 +29,12 @@ def player(prev_play, my_prev_play = [""], counter = [-1], against = [""], oppon
             my_prev_play[0] = "P"
         else:
             my_prev_play[0] = "P"
-       # my_history.append(my_prev_play[0])
         return my_prev_play[0]
     if counter[0] == 2:
         opponent_history.append(prev_play)
         history2 = "".join(opponent_history[-2:])
         against[0] = against_plays[history2]
+    
     if against[0]=="abbey":
         if counter[0] ==4:
             my_history[0] = "R"
@@ -39,9 +52,6 @@ def player(prev_play, my_prev_play = [""], counter = [-1], against = [""], oppon
             opponent_history = opponent_history[:-1]
         move = beat_quincy(prev_play,opponent_history)
         return move
-    
-
-
     
 
 
@@ -155,3 +165,7 @@ def beat_abbey(prev_play,my_prev_play =[""],counter = [0],
     move = ideal_response[prediction]
     my_prev_play[0] = move
     return move
+
+
+
+
