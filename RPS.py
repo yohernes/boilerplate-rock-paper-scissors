@@ -3,7 +3,11 @@ from collections import Counter
 # The example function below keeps track of the opponent's history and plays whatever the opponent played two plays ago.
 #  It is not a very good player so you will need to change the code to pass the challenge.
 
+def player(prev_play, opponent_history=[]):
+    opponent_history.append(prev_play)
 
+    choose - {"P": beat_abbey(prev_play)}
+    return guess
 
 
 
@@ -27,7 +31,7 @@ def beat_quincy(prev_play, opponent_history = [],counter = [-1]):
     return guess
 
 
-def BeatKris(prev_play, my_prev_play = [""] , opponent_history = [],counter = [-1]):
+def beat_kris(prev_play, my_prev_play = [""] , opponent_history = [],counter = [-1]):
     # kris tries to beat your last move, so you need to beat whatever beats your last move, so you can beat whatever beats your last move
     
     if not my_prev_play[0]:
@@ -37,7 +41,7 @@ def BeatKris(prev_play, my_prev_play = [""] , opponent_history = [],counter = [-
     my_prev_play[0] = guess
     return guess
 
-def BeatMrugesh(prev_play, opponent_history = [],counter = [-1], my_history = [""]):
+def beat_mrugesh(prev_play, opponent_history = [],counter = [-1], my_history = [""]):
     # mrugesh tries to beat your most frequent move out of your last 10,
     # if there is a tie in your last 10  mrugesh will pick randomly between the options
     # if there are 2 options you can choose the best one to win/tie, but when there are 3 options its totally random so i picked "P"
