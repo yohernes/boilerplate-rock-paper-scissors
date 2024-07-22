@@ -3,17 +3,51 @@ from collections import Counter
 # The example function below keeps track of the opponent's history and plays whatever the opponent played two plays ago.
 #  It is not a very good player so you will need to change the code to pass the challenge.
 
-def player(prev_play, opponent_history=[]):
-    opponent_history.append(prev_play)
-
-    choose - {"P": beat_abbey(prev_play)}
-    return guess
-
-
-
-def beat_quincy(prev_play, opponent_history = [],counter = [-1]):
-    # quincy cycles RPPSR so you need to go PSSRP (start with index 0)
+def player(prev_play, my_prev_play = [""], counter = [-1], against = [""], opponent_history=[], my_history = [""]):
     counter[0]+=1
+    against_plays = {"PP":"abbey", "PR":"kris", "RR":"mrugesh", "RP":"beat_quincy"}
+    if counter[0] ==0:
+        my_prev_play[0] = "S"
+        my_history.append(my_prev_play[0])
+        return my_prev_play[0]
+    if counter[0] ==1:
+        opponent_history.append(prev_play)
+        if prev_play == "R":
+            my_prev_play[0] = "P"
+        else:
+            my_prev_play[0] = "P"
+       # my_history.append(my_prev_play[0])
+        return my_prev_play[0]
+    if counter[0] == 2:
+        opponent_history.append(prev_play)
+        history2 = "".join(opponent_history[-2:])
+        against[0] = against_plays[history2]
+    if against[0]=="abbey":
+        if counter[0] ==4:
+            my_history[0] = "R"
+        move = beat_abbey(prev_play,my_prev_play,counter,my_history)
+        return move
+    elif against[0] == "kris":
+        move = beat_kris(prev_play,my_prev_play,counter)
+        return move
+    elif against[0]=="mrugesh":
+        move = beat_mrugesh(prev_play,opponent_history,counter,my_history)
+        return move
+    else:
+        #(against quincy)
+        if counter[0] == 2:
+            opponent_history = opponent_history[:-1]
+        move = beat_quincy(prev_play,opponent_history)
+        return move
+    
+
+
+    
+
+
+
+def beat_quincy(prev_play, opponent_history = []):
+    # quincy cycles RPPSR so you need to go PSSRP, made it dynamic to be able to start in the middle of a battle
     if prev_play != "":
         opponent_history.append(prev_play)
     
@@ -31,7 +65,7 @@ def beat_quincy(prev_play, opponent_history = [],counter = [-1]):
     return guess
 
 
-def beat_kris(prev_play, my_prev_play = [""] , opponent_history = [],counter = [-1]):
+def beat_kris(prev_play, my_prev_play = [""] ,counter = [-1]):
     # kris tries to beat your last move, so you need to beat whatever beats your last move, so you can beat whatever beats your last move
     
     if not my_prev_play[0]:
@@ -90,10 +124,12 @@ def most_frequent(strings):
     return ties
     
 
-def beat_abbey(prev_play,my_prev_play =[""],
+def beat_abbey(prev_play,my_prev_play =[""],counter = [0],
           my_history=[],
           play_order={"RR": 0,"RP": 0,"RS": 0,"PR": 0,"PP": 0,"PS": 0,"SR": 0,"SP": 0,"SS": 0, }):
-
+    if counter[0] == 4:
+         play_order["RS"]+=1
+#        play_order={"RR": 0,"RP": 0,"RS": 0,"PR": 0,"PP": 0,"PS": 0,"SR": 0,"SP": 1,"SS": 0, }
     if not my_prev_play[0]:
         my_prev_play[0]='R'
     my_history.append(my_prev_play[0])
